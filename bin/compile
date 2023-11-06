@@ -101,7 +101,7 @@ else
 julia <<__EOF__
 using Pkg
 Pkg.activate(mktempdir())
-Pkg.add(Pkg.PackageSpec(name="PackageCompiler", version="1.2.4"))
+Pkg.add(Pkg.PackageSpec(name="PackageCompiler", version="2.1.11"))
 using PackageCompiler
 Pkg.activate(get(ENV, "JULIA_PROJECT", "."))
 Pkg.instantiate()
