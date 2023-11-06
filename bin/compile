@@ -111,7 +111,7 @@ proj = Pkg.API.project()
 pkgs = Symbol.(keys(proj.dependencies))
 proj.ispackage && push!(pkgs, proj.name)
 # need to update to PackageCompiler 2 see https://julialang.github.io/PackageCompiler.jl/dev/#Upgrading-from-PackageCompiler-1.0.
-create_sysimage(pkgs; sysimage_path="prj-sysimage.so", precompile_statements_file=isfile("precompile.jl") ? "precompile.jl" : String[], include_lazy_artifacts=true)
+create_sysimage(pkgs; sysimage_path="prj-sysimage.so", precompile_statements_file=isfile("precompile.jl") ? "precompile.jl" : String[])
 __EOF__
 fi
 
@@ -122,4 +122,5 @@ which julia
 
 if test -f ~/.julia/prj-sysimage.so; then
   echo "Sys image is in ~/.julia/prj-sysimage.so"
+  alias julia='julia -J~/.julia/prj-sysimage.so'
 fi
