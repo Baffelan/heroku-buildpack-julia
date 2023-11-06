@@ -22,7 +22,7 @@ cd ${BUILD_DIR}
 
 mkdir -p .profile.d
 
-DEFAULT_JULIA_VERSION=1.7.2
+DEFAULT_JULIA_VERSION=1.9.3
 JULIA_VERSION="$DEFAULT_JULIA_VERSION"
 if [[ -f Project.toml ]]; then
   JULIA_VERSION="$(sed -rn 's/^julia\s*=\s*"(.*)"/\1/p' Project.toml)"
@@ -80,8 +80,8 @@ fi
 
 # ! means that it is allowed to fail
 # add local registry Baito
-! julia -e 'import Pkg; Pkg.Registry.add(RegistrySpec(url = "https://github.com/Baffelan/Baito.jl/"));'
-! julia -e 'import Pkg; Pkg.instantiate(); Pkg.API.precompile();'
+! julia -e 'using Pkg; Pkg.Registry.add(RegistrySpec(url = "https://github.com/Baffelan/Baito.jl/"));'
+! julia -e 'using Pkg; Pkg.instantiate(); Pkg.API.precompile();'
 
 # if there is a warmup.jl file, we run it to populate precompile.jl
 # all code executed in this file will be precompiled
@@ -96,10 +96,10 @@ fi
 if [[ -f "$ENV_DIR/HEROKU_JULIA_SKIP_SYSIMAGE" ]]; then
   echo "Skipping sysimage"
   # let's import all the required packages
-  ! julia -e "import Pkg; eval(Expr(:using, (Expr(:(.), Symbol(n)) for n in keys(Pkg.API.project().dependencies))...))"
+  ! julia -e "using Pkg; eval(Expr(:using, (Expr(:(.), Symbol(n)) for n in keys(Pkg.API.project().dependencies))...))"
 else
 julia <<__EOF__
-import Pkg
+using Pkg
 Pkg.activate(mktempdir())
 Pkg.add(Pkg.PackageSpec(name="PackageCompiler", version="1.2.4"))
 using PackageCompiler
