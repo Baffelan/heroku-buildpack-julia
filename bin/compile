@@ -100,7 +100,6 @@ if [[ -f "$ENV_DIR/HEROKU_JULIA_SKIP_SYSIMAGE" ]]; then
 else
 julia <<__EOF__
 using Pkg
-pwd()
 Pkg.activate(".")
 # Pkg.add(Pkg.PackageSpec(name="PackageCompiler", version="2.1.11"))
 using PackageCompiler
@@ -117,10 +116,3 @@ fi
 
 cp -r ~/.julia ${BUILD_DIR}/.julia
 rm -rf ${BUILD_DIR}/.julia/registries
-
-which julia
-
-if test -f ~/.julia/prj-sysimage.so; then
-  echo "Sys image is in ~/.julia/prj-sysimage.so"
-  alias julia='julia -J~/.julia/prj-sysimage.so'
-fi
