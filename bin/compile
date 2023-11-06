@@ -119,5 +119,4 @@ rm -rf ${BUILD_DIR}/.julia/registries
 
 if test -f ${BUILD_DIR}/prj-sysimage.so; then
   echo "Sys image is in ${BUILD_DIR}/prj-sysimage.so"
-  alias julia='julia -J${BUILD_DIR}/prj-sysimage.so'
 fi
