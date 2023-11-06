@@ -80,7 +80,7 @@ fi
 
 # ! means that it is allowed to fail
 # add local registry Baito
-! julia -e 'import Pkg; pkg"registry add "https://github.com/Baffelan/Baito.jl/";'
+! julia -e 'import Pkg; Pkg.Registry.add(RegistrySpec(url = "https://github.com/Baffelan/Baito.jl/"));'
 ! julia -e 'import Pkg; Pkg.instantiate(); Pkg.API.precompile();'
 
 # if there is a warmup.jl file, we run it to populate precompile.jl
